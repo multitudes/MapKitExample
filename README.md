@@ -8,7 +8,7 @@ extension CLLocationCoordinate2D {
     static let parking = CLLocationCoordinate2D(latitude: 42.354528, longitude: -71.068369)
 }
 ```
-3- Use Map content builder closure to add the marker to the map. 
+3- Use the MapContentBuilder closure to add the marker to the map. 
  
 
 ```swift
@@ -34,10 +34,71 @@ Annotations can display a SwiftUI view at a certain coordinate.
                     .cornerRadius (4)
             }
 ```
-And there are Mapcircle and MapPolyline.
+And there are Mapcircle, MapPolyline and MapPolygon.
 ```swift
             MapCircle (center: islandCenter, radius: islandRadius)
                 .foregroundStyle(.orange.opacity(0.75))
+            
             MapPolyline (coordinates: sidewalk)
                 .stroke(.blue, linewidth: 13)
+                
+            MapPolygon (coordinates: dock)
+        .       .foregroundStyle(.purple)
+```
+
+4- I will use annotation instead of Marker to display a custom image:
+```swift
+        Annotation("Parking", coordinate: .parking) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 5)
+                    .fill(.background)
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(.secondary, lineWidth: 5)
+                Image(systemName: "car")
+                    .padding(5)
+            }
+        }
+        .annotationTitles(.hidden) / hide the title leaving the icon only
+```
+This SwiftUI view will be displayed on the map centered right on the parking coordinate. If you’d like your view to be positioned above the coordinate instead, you can use Annotation’s anchor parameter. Specifying an anchor value of “bottom” will position the bottom of your view right on the annotation’s coordinate.
+
+- use mapStyle to display satellite or flyover imagery as well. There are a few options: `.mapStyle(.standard)`,`.mapStyle(.standard(.realistic))`, `.mapStyle (.imagery (elevation: .realistic))`, `.mapStyle (.hybrid(elevation: .realistic))`. 
+- Some button views to use in the search feature of the map:
+```swift
+HStack {
+    Button {
+        search(for: "playground")
+    } label: {
+        Label ("Playgrounds", systemImage: "figure.and.child.holdinghands")
+    } 
+    .buttonStyle(.borderedProminent)
+    
+    Button {
+        search(for: "beach")
+    } label: {
+        Label ("Beaches", systemImage: "beach.umbrella")
+    } 
+    .buttonStyle(.borderedProminent)
+}
+.labelStyle (.iconOnly)
+
+```
+- and our search function will use a Binding and MKLocalSearch to find places on my map and will look like this:
+```swift
+@Binding var searchResults: [MKMapItem]
+
+func search(for query: String) {
+    let request = MKLocalSearch.Request ()
+    request.naturalLanguageQuery = query
+    request.resultTypes = .pointOfInterest
+    request.region = MKCoordinateRegion (
+        center: .parking,
+        span: MKCoordinateSpan (latitudeDelta: 0.0125, longitudeDelta: 0.0125))
+
+    Task {
+        let search = MKLocalSearch (request: request)
+        let response = try? await search.start ()
+        searchResults = response?.mapItems ?? []
+    }
+}
 ```
