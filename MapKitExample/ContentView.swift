@@ -14,7 +14,9 @@ extension CLLocationCoordinate2D {
 
 struct ContentView: View {
     var body: some View {
-        Map()
+        Map {
+            Marker("Parking", coordinate: .parking)
+        }
     }
 }
 
