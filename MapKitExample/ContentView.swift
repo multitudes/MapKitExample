@@ -12,11 +12,24 @@ extension CLLocationCoordinate2D {
     static let parking = CLLocationCoordinate2D(latitude: 42.354528, longitude: -71.068369)
 }
 
+extension MKCoordinateRegion {
+    static let boston = MKCoordinateRegion (
+        center: CLLocationCoordinate2D( latitude: 42.360256, longitude: -71.057279),
+        span: MKCoordinateSpan ( latitudeDelta: 0.1, longitudeDelta: 0.1)
+    )
+    
+    static let northShore = MKCoordinateRegion (
+        center: CLLocationCoordinate2D( latitude: 42.547408, longitude: -70.870085),
+        span: MKCoordinateSpan( latitudeDelta: 0.5, longitudeDelta: 0.5)
+    )
+}
+
 struct ContentView: View {
+    @State private var position: MapCameraPosition = .automatic
     @State private var searchResults: [MKMapItem] = []
     
     var body: some View {
-        Map {
+        Map(position: $position) {
             Annotation("Parking",coordinate: .parking, anchor: .center) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 5)
@@ -43,10 +56,10 @@ struct ContentView: View {
             }
             .background(.ultraThinMaterial)
         }
+        .onChange(of: searchResults) {
+            position = .automatic
+        }
     }
-        
-
-
 }
 
 #Preview {

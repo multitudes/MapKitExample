@@ -133,3 +133,43 @@ Map {
         .tint(.orange)
 }
 ```
+- Control what place or region is displayed. Discover if the user has interacted.  
+`@State private var position: MapCameraPosition = .automatic`
+and
+`Map(position: $position) {...`  
+```swift
+        .onChange(of: searchResults) {
+            position = .automatic
+        }
+```
+
+- next create regions
+```swift
+extension MKCoordinateRegion {
+    static let boston = MKCoordinateRegion (
+        center: CLLocationCoordinate2D( latitude: 42.360256, longitude: -71.057279),
+        span: MKCoordinateSpan ( latitudeDelta: 0.1, longitudeDelta: 0.1)
+    )
+    
+    static let northShore = MKCoordinateRegion (
+        center: CLLocationCoordinate2D( latitude: 42.547408, longitude: -70.870085),
+        span: MKCoordinateSpan( latitudeDelta: 0.5, longitudeDelta: 0.5)
+    )
+}
+```
+Add buttons in the bottom view together with a binding to position
+```swift
+    `Button {
+        position = .region (.boston)
+    } label: {
+        `Label("Boston", systemImage: "building.2")
+    }
+    .buttonStyle (.bordered)
+        
+    Button {
+        `position = .region (.northShore)
+    } label: {
+    `   Label("North Shore", systemImage: "water.waves")
+    }
+    .buttonStyle (.bordered)      
+```
