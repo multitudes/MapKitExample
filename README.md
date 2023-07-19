@@ -115,3 +115,21 @@ func search(for query: String) {
     }
 ```
 - Add the markers
+```swift
+    ForEach(searchResults, id: \.self) { result in
+        Marker(item: result)
+    }
+```
+The search results are MKMapItems, which is the type MapKit APIs like MKLocalSearch use to represent places. Here, I’m using Marker’s map item initializer. Markers created this way use the map item’s name for their title and use information from the map item to show an icon and tint color that represent the place. Most of these search results show as light blue beach umbrella markers. When you’re working with map items, Marker’s automatic content and style support is very convenient. Even if you aren’t using map items, though, you still have control over the Marker’s presentation. By default, Marker shows a map pin icon in its balloon, like you see here. You can provide your own icon using an Image asset or a system image. You can also show up to three letters of text using monogram. You can change the Marker’s color using the tint modifier. 
+```
+Map {
+    Marker ("Parking", systemImage: "car.fill", coordinate: parking)
+        .tint (.mint)
+
+    Marker ("Foot Bridge", monogram: "FB" coordinate: bridge)
+        .tint (.blue)
+
+    Marker("Ducklings", image: "DucklingAsset" coordinate: ducklings)
+        .tint(.orange)
+}
+```

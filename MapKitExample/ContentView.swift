@@ -28,6 +28,10 @@ struct ContentView: View {
                 }
             }
             .annotationTitles(.hidden)
+            
+            ForEach(searchResults, id: \.self) { result in
+                Marker(item: result)
+            }
         }
         .mapStyle(.standard(elevation: .realistic))
         .safeAreaInset(edge: .bottom) {
