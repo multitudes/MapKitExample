@@ -29,14 +29,15 @@ struct BeanTownButtons: View {
             .buttonStyle(.borderedProminent)
             
             Button {
+                position = .region(.boston)
             } label: {
-                position = .region (.boston)
                 Label("Boston", systemImage: "building.2")
             }
-            .buttonStyle (.bordered)
+            .buttonStyle(.bordered)
+            
             Button {
+                position = .region(.northShore)
             } label: {
-                position = .region (.northShore)
                 Label("North Shore", systemImage: "water.waves")
             }
             .buttonStyle (.bordered)
@@ -51,7 +52,7 @@ struct BeanTownButtons: View {
         request.region = MKCoordinateRegion (
             center: .parking,
             span: MKCoordinateSpan (latitudeDelta: 0.0125, longitudeDelta: 0.0125))
-
+        
         Task {
             let search = MKLocalSearch (request: request)
             let response = try? await search.start ()
@@ -61,5 +62,5 @@ struct BeanTownButtons: View {
 }
 
 #Preview {
-    BeanTownButtons(searchResults: .constant([]))
+    BeanTownButtons(position: .constant(.automatic), searchResults: .constant([]))
 }

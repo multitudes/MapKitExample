@@ -173,3 +173,15 @@ Add buttons in the bottom view together with a binding to position
     }
     .buttonStyle (.bordered)      
 ```
+
+Behind the scenes, what the Map shows is ultimately controlled by a MapCamera. The camera looks at a coordinate on the ground from a certain distance and the orientation of the camera determines what is visible in the map. The app I’m building has not had to create or configure the camera itself. Instead, it simply specifies what should be in view using MapCameraPosition. MapKit takes care of the camera for me. The app uses an automatic camera position to frame content, such as search results. It uses a region position to show Boston and the North Shore. You can specify a camera position to frame other things, as well. Rect position is used to show an area, just like how we’ve used region. It simply uses a map rect to represent that area, instead of a coordinate region. Let’s take a closer look at item, camera, and user location camera positions.
+
+Control what place or region is displayed:  
+• automatic  
+• region (MKCoordinateRegion)  
+• rect (MKMapRect)  
+• item (MKMapItem)  
+• camera (MapCamera)  
+• userLocation ( )  
+
+

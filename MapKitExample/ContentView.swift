@@ -50,7 +50,7 @@ struct ContentView: View {
         .safeAreaInset(edge: .bottom) {
             HStack {
                 Spacer()
-                BeanTownButtons(searchResults: $searchResults)
+                BeanTownButtons(position: $position, searchResults: $searchResults)
                     .padding(.top)
                 Spacer()
             }
