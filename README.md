@@ -102,3 +102,16 @@ func search(for query: String) {
     }
 }
 ```
+- Adding the buttons in the safe area:
+```swift
+    .safeAreaInset(edge: .bottom) {
+        HStack {
+            Spacer()
+            BeanTownButtons(searchResults: $searchResults)
+                .padding(.top)
+            Spacer()
+        }
+        .background(.ultraThinMaterial)
+    }
+```
+- Add the markers

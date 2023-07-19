@@ -14,6 +14,7 @@ extension CLLocationCoordinate2D {
 
 struct ContentView: View {
     @State private var searchResults: [MKMapItem] = []
+    
     var body: some View {
         Map {
             Annotation("Parking",coordinate: .parking, anchor: .center) {
@@ -29,7 +30,17 @@ struct ContentView: View {
             .annotationTitles(.hidden)
         }
         .mapStyle(.standard(elevation: .realistic))
+        .safeAreaInset(edge: .bottom) {
+            HStack {
+                Spacer()
+                BeanTownButtons(searchResults: $searchResults)
+                    .padding(.top)
+                Spacer()
+            }
+            .background(.ultraThinMaterial)
+        }
     }
+        
 
 
 }
