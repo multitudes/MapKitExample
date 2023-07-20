@@ -1,8 +1,17 @@
-# MapKitExample
-Inspired by the WWDC23 talk Meet MapKit for SwiftUI
+# Meet MapKit for SwiftUI
+Notes from the WWDC23 talk Meet MapKit for SwiftUI
+ 
+## Part 1
 
-1 - remove the boilerplate code, import MapKit and add `Map()`.  
-2- Add a marker on a specific coordinate:
+MapKit already has introduced some new improvement in iOS16, like the new 3D city experience and new overlays options. In iOS17 and macOS 14, MapKit goes to a new level introducing a few new addition for SwiftUI.
+
+The notes below are from the WWDC23 session: "Meet MapKit for SwiftUI" intended for personal use only. It is a fantastic presentation going from zero to a full functioning app in just 30 minutes. There was no code transcription or download avalaible so I typed along. 
+I think the new API are fantastic. Lets see them in action! 
+
+
+We make a new project in Xcode. The exciting thing here is that I can straightaway start with a universal app. I remove the boilerplate code, import MapKit and add `Map()` to the `ContentView()` and this alone is already enough to show the map in the preview. I love maps! :)
+  
+How to add a marker on a specific coordinate:
 ```swift
 extension CLLocationCoordinate2D {
     static let parking = CLLocationCoordinate2D(latitude: 42.354528, longitude: -71.068369)
@@ -176,12 +185,20 @@ Add buttons in the bottom view together with a binding to position
 
 Behind the scenes, what the Map shows is ultimately controlled by a MapCamera. The camera looks at a coordinate on the ground from a certain distance and the orientation of the camera determines what is visible in the map. The app I’m building has not had to create or configure the camera itself. Instead, it simply specifies what should be in view using MapCameraPosition. MapKit takes care of the camera for me. The app uses an automatic camera position to frame content, such as search results. It uses a region position to show Boston and the North Shore. You can specify a camera position to frame other things, as well. Rect position is used to show an area, just like how we’ve used region. It simply uses a map rect to represent that area, instead of a coordinate region. Let’s take a closer look at item, camera, and user location camera positions.
 
-Control what place or region is displayed:  
-• automatic  
-• region (MKCoordinateRegion)  
-• rect (MKMapRect)  
-• item (MKMapItem)  
-• camera (MapCamera)  
-• userLocation ( )  
+We control what place or region is displayed with:  
+- automatic  
+- region (MKCoordinateRegion)  
+- rect (MKMapRect)  
+- item (MKMapItem)  
+- camera (MapCamera)  
+- userLocation( )  
 
 
+
+### Links
+[WWDC23 - Meet MapKit for SwiftUI](https://developer.apple.com/videos/play/wwdc2023/10043/)
+
+[WWDC22 - What's new in MapKit](https://developer.apple.com/videos/play/wwdc2022/10035/)
+
+[MapKit docs](https://developer.apple.com/documentation/mapkit)
+[MapKit for SwiftUI docs](https://developer.apple.com/documentation/mapkit/mapkit_for_swiftui)
