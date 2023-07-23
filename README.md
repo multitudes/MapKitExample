@@ -9,7 +9,7 @@ The notes below are from the WWDC23 session: "Meet MapKit for SwiftUI" intended 
 I think the new API are fantastic. Lets see them in action! 
 
 
-We make a new project in Xcode. The exciting thing here is that I can straightaway start with a universal app. I remove the boilerplate code, import MapKit and add `Map()` to the `ContentView()` and this alone is already enough to show the map in the preview. I love maps! :)
+We make a new project in Xcode. The exciting thing here is that I can straightaway start with a universal app. I remove the boilerplate code, `import MapKit` and add `Map()` to the `ContentView()` and this alone is already enough to show the map in the preview. I love maps! :)
   
 How to add a marker on a specific coordinate:
 ```swift
