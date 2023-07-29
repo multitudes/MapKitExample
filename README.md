@@ -1,3 +1,7 @@
+I recreated the code for the talk. It was fairly straight forward but still missing a couple of things... like directions and route
+
+
+
 # Meet MapKit for SwiftUI
 Notes from the WWDC23 talk Meet MapKit for SwiftUI
  
