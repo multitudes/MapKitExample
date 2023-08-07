@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import VisionKit
 
 struct ItemInfoView: View {
     // ItemInfoView.swift - Fetch a Look Around scene
@@ -51,6 +52,10 @@ struct ItemInfoView: View {
             lookAroundScene = try? await request.scene
         }
     }
+
+
+        
+    
 }
 
 #Preview {

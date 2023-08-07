@@ -24,6 +24,14 @@ extension MKCoordinateRegion {
     )
 }
 
+extension MKPolyline {
+    static let testPolyline = MKPolyline(coordinates: [
+        CLLocationCoordinate2D( latitude: 42.360256, longitude: -71.057279),
+        CLLocationCoordinate2D( latitude: 42.36027, longitude: -71.057279),
+        CLLocationCoordinate2D( latitude: 42.36027, longitude: -71.0573),
+], count: 3)
+}
+
 struct ContentView: View {
     @State private var position: MapCameraPosition = .automatic
     @State private var visibleRegion: MKCoordinateRegion?
@@ -45,10 +53,38 @@ struct ContentView: View {
             }
             .annotationTitles(.hidden)
             
+            
+            
             ForEach(searchResults, id: \.self) { result in
                 Marker(item: result)
             }
             .annotationTitles(.hidden)
+            
+            if let route {
+                MapPolyline(route)
+                    .stroke(.blue, lineWidth: 5)
+            }
+            
+            MapPolygon(coordinates: [
+                CLLocationCoordinate2D(latitude: 42.354528, longitude: -71.068369),
+                CLLocationCoordinate2D( latitude: 42.46441, longitude: -70.95092),
+                CLLocationCoordinate2D( latitude: 42.50590, longitude: -71.07278),
+                CLLocationCoordinate2D(latitude: 42.354528, longitude: -71.068369),
+            ])//, contourStyle: .geodesic
+            .stroke(.pink, lineWidth: 5)
+            .foregroundStyle(.pink.opacity(0.5))
+            
+            
+            MapCircle(center: .parking, radius: 10000)
+                .foregroundStyle(.pink.opacity(0.5))
+                .stroke(.blue, style: StrokeStyle(lineWidth: 1, lineCap: .round, lineJoin: .round, miterLimit: 0.5, dash: [0.3], dashPhase: 0.7))
+                .mapOverlayLevel(level: .aboveRoads)
+            
+        }
+        .mapControls {
+            MapUserLocationButton()
+            MapCompass()
+            MapScaleView()
         }
         .mapStyle(.standard(elevation: .realistic))
         .safeAreaInset(edge: .bottom) {
